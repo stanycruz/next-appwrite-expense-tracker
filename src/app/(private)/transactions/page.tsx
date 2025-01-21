@@ -10,9 +10,7 @@ import Spinner from '@/components/ui/spinner';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,

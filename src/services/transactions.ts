@@ -36,3 +36,38 @@ export const getTransactions = async (userId: any) => {
     throw new Error(error.message);
   }
 };
+
+export const getTransactionById = async (transactionId: string) => {
+  try {
+    const response = await databases.getDocument(
+      APPWRITE_DATABASE_ID,
+      TRANSACTIONS_COLLECTION_ID,
+      transactionId
+    );
+
+    return {
+      success: true,
+      data: response,
+    };
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const editTransaction = async (transactionId: string, data: any) => {
+  try {
+    await databases.updateDocument(
+      APPWRITE_DATABASE_ID,
+      TRANSACTIONS_COLLECTION_ID,
+      transactionId,
+      data
+    );
+
+    return {
+      success: true,
+      data: 'Transaction updated successfully',
+    };
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};

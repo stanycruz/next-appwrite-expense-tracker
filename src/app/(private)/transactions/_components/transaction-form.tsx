@@ -18,19 +18,19 @@ import {
 import { Button } from '@/components/ui/button';
 import toast from 'react-hot-toast';
 import { IUsersStore, usersStore } from '@/store/users-store';
-import { addNewTransaction } from '@/services/transactions';
+import { addNewTransaction, editTransaction } from '@/services/transactions';
 import { useRouter } from 'next/navigation';
 
 function TransactionForm({
-  initValues,
+  initialValues,
   type = 'new',
 }: {
-  initValues?: any;
+  initialValues?: any;
   type?: 'new' | 'edit';
 }) {
   const { loggedInUser } = usersStore() as IUsersStore;
   const [transactionData, setTransactionData] = React.useState(
-    initValues || {
+    initialValues || {
       name: '',
       amount: 0,
       date: '',
@@ -66,8 +66,22 @@ function TransactionForm({
       setLoading(true);
       transactionData.userId = loggedInUser?.userId;
       transactionData.amount = parseFloat(transactionData.amount);
-      await addNewTransaction(transactionData);
-      toast.success('Transaction added successfully');
+      if (type === 'new') {
+        await addNewTransaction(transactionData);
+        toast.success('Transaction added successfully');
+      } else {
+        let transactionDataWithoutAdditionalFields = { ...transactionData };
+        Object.keys(transactionDataWithoutAdditionalFields).forEach((key) => {
+          if (key.startsWith('$')) {
+            delete transactionDataWithoutAdditionalFields[key];
+          }
+        });
+        await editTransaction(
+          initialValues.$id,
+          transactionDataWithoutAdditionalFields
+        );
+        toast.success('Transaction updated successfully');
+      }
       router.push('/transactions');
     } catch (error: any) {
       toast.error(error.message);
@@ -163,7 +177,9 @@ function TransactionForm({
       </div>
 
       <div className="flex justify-end gap-5 mt-7">
-        <Button variant="outline">Cancel</Button>
+        <Button variant="outline" onClick={() => router.push('/transactions')}>
+          Cancel
+        </Button>
         <Button onClick={handleSave} disabled={loading || !isValidated()}>
           Save
         </Button>
