@@ -19,3 +19,20 @@ export const addNewTransaction = async (data: any) => {
     throw new Error(error.message);
   }
 };
+
+export const getTransactions = async (userId: any) => {
+  try {
+    const transactions = await databases.listDocuments(
+      APPWRITE_DATABASE_ID,
+      TRANSACTIONS_COLLECTION_ID,
+      [Query.equal('userId', userId)]
+    );
+
+    return {
+      success: true,
+      message: transactions.documents,
+    };
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
