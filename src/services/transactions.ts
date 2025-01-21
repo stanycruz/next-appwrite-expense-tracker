@@ -30,7 +30,7 @@ export const getTransactions = async (userId: any) => {
 
     return {
       success: true,
-      message: transactions.documents,
+      data: transactions.documents,
     };
   } catch (error: any) {
     throw new Error(error.message);
