@@ -16,6 +16,10 @@ import {
   transactionTypes,
 } from '@/constants';
 import { Button } from '@/components/ui/button';
+import toast from 'react-hot-toast';
+import { IUsersStore, usersStore } from '@/store/users-store';
+import { addNewTransaction } from '@/services/transactions';
+import { useRouter } from 'next/navigation';
 
 function TransactionForm({
   initValues,
@@ -24,6 +28,7 @@ function TransactionForm({
   initValues?: any;
   type?: 'new' | 'edit';
 }) {
+  const { loggedInUser } = usersStore() as IUsersStore;
   const [transactionData, setTransactionData] = React.useState(
     initValues || {
       name: '',
@@ -34,13 +39,42 @@ function TransactionForm({
       description: '',
     }
   );
-
+  const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
   const onFormValueChange = (fieldName: string, value: any) => {
     setTransactionData({ ...transactionData, [fieldName]: value });
   };
 
   const categories =
-    transactionData === 'income' ? incomeCategories : expenseCategories;
+    transactionData.type === 'income' ? incomeCategories : expenseCategories;
+
+  const isValidated = () => {
+    if (
+      !transactionData.name ||
+      !transactionData.amount ||
+      !transactionData.date ||
+      !transactionData.type ||
+      !transactionData.category
+    ) {
+      return false;
+    }
+    return true;
+  };
+
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+      transactionData.userId = loggedInUser?.userId;
+      transactionData.amount = parseFloat(transactionData.amount);
+      await addNewTransaction(transactionData);
+      toast.success('Transaction added successfully');
+      router.push('/transactions');
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="mt-7">
@@ -55,6 +89,7 @@ function TransactionForm({
         <Input
           labelName="Amount"
           name="amount"
+          type="number"
           value={transactionData.amount}
           onChange={(e) => onFormValueChange('amount', e.target.value)}
         />
@@ -62,6 +97,7 @@ function TransactionForm({
         <Input
           labelName="Date"
           name="date"
+          type="date"
           value={transactionData.date}
           onChange={(e) => onFormValueChange('date', e.target.value)}
         />
@@ -128,7 +164,9 @@ function TransactionForm({
 
       <div className="flex justify-end gap-5 mt-7">
         <Button variant="outline">Cancel</Button>
-        <Button>Save</Button>
+        <Button onClick={handleSave} disabled={loading || !isValidated()}>
+          Save
+        </Button>
       </div>
     </div>
   );
