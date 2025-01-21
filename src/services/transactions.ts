@@ -71,3 +71,20 @@ export const editTransaction = async (transactionId: string, data: any) => {
     throw new Error(error.message);
   }
 };
+
+export const deleteTransaction = async (transactionId: string) => {
+  try {
+    await databases.deleteDocument(
+      APPWRITE_DATABASE_ID,
+      TRANSACTIONS_COLLECTION_ID,
+      transactionId
+    );
+
+    return {
+      success: true,
+      data: 'Transaction deleted successfully',
+    };
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};

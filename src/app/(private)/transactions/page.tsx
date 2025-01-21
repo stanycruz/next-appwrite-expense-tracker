@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ITransaction } from '@/interfaces';
 import toast from 'react-hot-toast';
 import { IUsersStore, usersStore } from '@/store/users-store';
-import { getTransactions } from '@/services/transactions';
+import { deleteTransaction, getTransactions } from '@/services/transactions';
 import Spinner from '@/components/ui/spinner';
 import {
   Table,
@@ -28,6 +28,19 @@ function TransactionsPage() {
       setLoading(true);
       const response: any = await getTransactions(loggedInUser?.userId!);
       setTransactions(response.data);
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (transactionId: string) => {
+    try {
+      setLoading(true);
+      await deleteTransaction(transactionId);
+      toast.success('Transaction deleted successfully');
+      setTransactions(transactions.filter((t) => t.$id !== transactionId));
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -80,8 +93,12 @@ function TransactionsPage() {
               <TableCell>{transaction.amount}</TableCell>
               <TableCell>
                 <div className="flex gap-5 items-center">
-                  <Button variant="outline" size="sm">
-                    <Trash2 size={20} />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleDelete(transaction.$id)}
+                  >
+                    <Trash2 size={14} />
                   </Button>
 
                   <Button
@@ -91,7 +108,7 @@ function TransactionsPage() {
                       router.push(`/transactions/edit/${transaction.$id}`)
                     }
                   >
-                    <Pencil size={20} />
+                    <Pencil size={14} />
                   </Button>
                 </div>
               </TableCell>
