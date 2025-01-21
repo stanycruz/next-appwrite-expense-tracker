@@ -14,3 +14,27 @@ export const publicRoutes = [
 
 // routes which require authentication
 export const privateRoutes = ['/dashboard', '/profile'];
+
+export const transactionTypes = [
+  { label: 'Income', value: 'income' },
+  { label: 'Expense', value: 'expense' },
+];
+
+export const incomeCategories = [
+  { label: 'Salary', value: 'salary' },
+  { label: 'Business', value: 'business' },
+  { label: 'Gifts', value: 'gifts' },
+  { label: 'Interests', value: 'interests' },
+  { label: 'Others', value: 'others' },
+];
+
+export const expenseCategories = [
+  { label: 'Food', value: 'food' },
+  { label: 'Rent', value: 'rent' },
+  { label: 'Travel', value: 'travel' },
+  { label: 'Groceries', value: 'groceries' },
+  { label: 'Shopping', value: 'shopping' },
+  { label: 'Health', value: 'health' },
+  { label: 'Bills', value: 'bills' },
+  { label: 'Others', value: 'others' },
+];
