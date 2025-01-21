@@ -1,16 +1,13 @@
 import React from 'react';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from '@/components/ui/sheet';
 import {
   LayoutDashboardIcon,
+  List,
   LogOutIcon,
   Settings,
   UserCircle,
@@ -41,6 +38,11 @@ function Sidebar({
       title: 'Profile',
       path: '/profile',
       icon: <UserCircle size={14} />,
+    },
+    {
+      title: 'Transactions',
+      path: '/transactions',
+      icon: <List size={14} />,
     },
     {
       title: 'Settings',
