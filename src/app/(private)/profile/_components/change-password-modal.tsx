@@ -14,7 +14,7 @@ import { changeUserPassword } from '@/services/users';
 
 interface ChangePasswordModalProps {
   showChangePasswordModal: boolean;
-  setShowChangePasswordModal: (show: boolean) => void;
+  setShowChangePasswordModal: (_show: boolean) => void;
 }
 
 function ChangePasswordModal({

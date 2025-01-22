@@ -17,7 +17,7 @@ import { IUsersStore, usersStore } from '@/store/users-store';
 
 interface EditProfileModalProps {
   showEditProfileModal: boolean;
-  setShowEditProfileModal: (show: boolean) => void;
+  setShowEditProfileModal: (_show: boolean) => void;
   loggedInUser: IUser;
 }
 
