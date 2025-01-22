@@ -18,9 +18,16 @@ import { Button } from '@/components/ui/button';
 interface ITransactionFiltersProps {
   filters: any;
   setFilters: (filters: any) => void;
+  onFilter: (filters: any) => void;
+  onReset: (filters: any) => void;
 }
 
-function TransactionFilters({ filters, setFilters }: ITransactionFiltersProps) {
+function TransactionFilters({
+  filters,
+  setFilters,
+  onFilter,
+  onReset,
+}: ITransactionFiltersProps) {
   const onFiltersValueChange = (fieldName: string, value: any) => {
     setFilters({ ...filters, [fieldName]: value });
   };
@@ -87,8 +94,18 @@ function TransactionFilters({ filters, setFilters }: ITransactionFiltersProps) {
       />
 
       <div className="grid grid-cols-2 gap-5">
-        <Button variant="outline">Reset</Button>
-        <Button>Apply</Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            setFilters({});
+            if (onReset) {
+              onReset({ type: '', category: '', date: '' });
+            }
+          }}
+        >
+          Reset
+        </Button>
+        <Button onClick={() => onFilter(filters)}>Apply</Button>
       </div>
     </div>
   );

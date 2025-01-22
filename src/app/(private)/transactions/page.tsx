@@ -29,10 +29,13 @@ function TransactionsPage() {
   });
   const router = useRouter();
   const { loggedInUser } = usersStore() as IUsersStore;
-  const getData = async () => {
+  const getData = async (filtersObj: any) => {
     try {
       setLoading(true);
-      const response: any = await getTransactions(loggedInUser?.userId!);
+      const response: any = await getTransactions(
+        loggedInUser?.userId!,
+        filtersObj
+      );
       setTransactions(response.data);
     } catch (error: any) {
       toast.error(error.message);
@@ -56,7 +59,7 @@ function TransactionsPage() {
 
   React.useEffect(() => {
     if (loggedInUser) {
-      getData();
+      getData({});
     }
   }, [loggedInUser]);
 
@@ -78,7 +81,12 @@ function TransactionsPage() {
         </Button>
       </div>
 
-      <TransactionFilters filters={filters} setFilters={setFilters} />
+      <TransactionFilters
+        filters={filters}
+        setFilters={setFilters}
+        onFilter={getData}
+        onReset={getData}
+      />
 
       <Table className="mt-5 border border-gray-300">
         <TableHeader>

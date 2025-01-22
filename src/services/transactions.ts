@@ -20,12 +20,20 @@ export const addNewTransaction = async (data: any) => {
   }
 };
 
-export const getTransactions = async (userId: any) => {
+export const getTransactions = async (userId: any, filters?: any) => {
   try {
+    let query = [Query.equal('userId', userId)];
+
+    Object.keys(filters || {}).forEach((key) => {
+      if (filters[key]) {
+        query.push(Query.equal(key, filters[key]));
+      }
+    });
+
     const transactions = await databases.listDocuments(
       APPWRITE_DATABASE_ID,
       TRANSACTIONS_COLLECTION_ID,
-      [Query.equal('userId', userId)]
+      query
     );
 
     return {
