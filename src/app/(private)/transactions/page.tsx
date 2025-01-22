@@ -17,10 +17,16 @@ import {
 } from '@/components/ui/table';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import TransactionFilters from './_components/transaction-filters';
 
 function TransactionsPage() {
   const [transactions, setTransactions] = React.useState<ITransaction[]>([]);
   const [loading, setLoading] = React.useState(false);
+  const [filters, setFilters] = React.useState<any>({
+    type: '',
+    category: '',
+    date: '',
+  });
   const router = useRouter();
   const { loggedInUser } = usersStore() as IUsersStore;
   const getData = async () => {
@@ -71,6 +77,8 @@ function TransactionsPage() {
           <Link href="/transactions/new">New Transaction</Link>
         </Button>
       </div>
+
+      <TransactionFilters filters={filters} setFilters={setFilters} />
 
       <Table className="mt-5 border border-gray-300">
         <TableHeader>
