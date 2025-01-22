@@ -2,13 +2,15 @@ import React from 'react';
 import TransactionForm from '../../_components/transaction-form';
 import { getTransactionById } from '@/services/transactions';
 
-async function EditTransactionPage({
-  params,
-}: {
+interface EditTransactionPageProps {
   params: {
     id: string;
   };
-}) {
+}
+
+const EditTransactionPage: React.FC<EditTransactionPageProps> = async ({
+  params,
+}) => {
   const { id } = params;
   const transaction = await getTransactionById(id);
 
@@ -18,6 +20,6 @@ async function EditTransactionPage({
       <TransactionForm type="edit" initialValues={transaction.data} />
     </div>
   );
-}
+};
 
 export default EditTransactionPage;
