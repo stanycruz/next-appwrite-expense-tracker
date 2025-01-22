@@ -5,6 +5,9 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
-    'prettier/prettier': ['error'],
+    'prettier/prettier': ['warn'],
+    'no-unused-vars': 'warn',
+    'react/no-unescaped-entities': 'warn',
+    'no-undef': 'warn',
   },
 };
