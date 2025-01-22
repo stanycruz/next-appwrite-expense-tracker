@@ -9,7 +9,7 @@ async function EditTransactionPage({
     id: string;
   };
 }) {
-  const { id } = await params;
+  const { id } = params;
   const transaction = await getTransactionById(id);
 
   return (
