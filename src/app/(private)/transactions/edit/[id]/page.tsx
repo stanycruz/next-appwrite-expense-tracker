@@ -1,14 +1,19 @@
-import React from 'react';
+import { notFound } from 'next/navigation';
 import TransactionForm from '../../_components/transaction-form';
 import { getTransactionById } from '@/services/transactions';
 
-const EditTransactionPage = async ({
+interface EditTransactionPageProps {
+  params: { id: string };
+}
+
+export default async function EditTransactionPage({
   params,
-}: {
-  params: Record<string, any>;
-}) => {
-  const { id } = params;
-  const transaction = await getTransactionById(id);
+}: EditTransactionPageProps) {
+  if (!params?.id) return notFound();
+
+  const transaction = await getTransactionById(params.id);
+
+  if (!transaction) return notFound();
 
   return (
     <div>
@@ -16,6 +21,4 @@ const EditTransactionPage = async ({
       <TransactionForm type="edit" initialValues={transaction.data} />
     </div>
   );
-};
-
-export default EditTransactionPage;
+}
