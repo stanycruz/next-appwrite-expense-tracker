@@ -1,12 +1,21 @@
 'use client';
-import React from 'react';
+
+import React, { Suspense } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { account } from '@/config/appwrite-config';
 
-function ResetPasswordPage() {
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <ResetPasswordContent />
+    </Suspense>
+  );
+}
+
+function ResetPasswordContent() {
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const searchParams = useSearchParams();
@@ -64,5 +73,3 @@ function ResetPasswordPage() {
     </div>
   );
 }
-
-export default ResetPasswordPage;
