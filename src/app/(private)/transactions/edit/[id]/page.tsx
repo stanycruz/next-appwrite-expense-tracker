@@ -2,13 +2,7 @@ import React from 'react';
 import TransactionForm from '../../_components/transaction-form';
 import { getTransactionById } from '@/services/transactions';
 
-interface EditTransactionPageProps {
-  params: Awaited<{ id: string }>;
-}
-
-const EditTransactionPage: React.FC<EditTransactionPageProps> = async ({
-  params,
-}) => {
+const EditTransactionPage: React.FC<{ params: any }> = async ({ params }) => {
   const { id } = params;
   const transaction = await getTransactionById(id);
 
