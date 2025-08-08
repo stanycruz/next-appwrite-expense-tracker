@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Expense Tracker – Next.js + Appwrite
 
-## Getting Started
+Este é um projeto **fullstack** de controle de despesas desenvolvido com **Next.js** no frontend e **Appwrite** no backend, baseado nos aprendizados do curso [Next.js and Appwrite Masterclass: Build FullStack Projects](https://www.udemy.com/course/nextjs-and-appwrite-masterclass-build-fullstack-projects).
 
-First, run the development server:
+## 📌 Descrição
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+O sistema permite que usuários criem uma conta, façam login, e gerenciem suas despesas de forma intuitiva. Todas as informações são armazenadas e gerenciadas por meio da plataforma Appwrite.
+
+> ✅ Este projeto está publicado na Vercel e pode ser acessado em:  
+🔗 **https://next-appwrite-expense-tracker.vercel.app/**
+
+## 🚀 Tecnologias Utilizadas
+
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Appwrite](https://appwrite.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [ShadCN UI](https://ui.shadcn.com/)
+
+## ⚙️ Funcionalidades
+
+- ✅ Registro e login de usuários
+- ✅ Adição e remoção de despesas
+- ✅ Visualização de despesas em tempo real
+- ✅ Armazenamento seguro via Appwrite
+- ✅ Interface responsiva e moderna
+- ✅ Proteção de rotas e sessões
+
+## 🏗️ Estrutura de Pastas
+
+```
+├── app/                 # Páginas e rotas (Next.js App Router)
+├── components/          # Componentes reutilizáveis da UI
+├── context/             # Contexto global para autenticação e estado
+├── lib/                 # Utilitários para integração com Appwrite
+├── public/              # Arquivos públicos
+├── styles/              # Arquivos de estilo global (Tailwind)
+├── types/               # Tipagens personalizadas
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Pré-requisitos
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Antes de rodar o projeto, é necessário:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Ter o Node.js instalado
+2. Ter o Appwrite instalado localmente ou usar uma instância online
 
-## Learn More
+## 🛠️ Como rodar localmente
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/seu-repositorio.git
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Acesse a pasta
+cd seu-repositorio
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Instale as dependências
+npm install
 
-## Deploy on Vercel
+# Configure as variáveis de ambiente
+cp .env.example .env.local
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Edite o arquivo `.env.local` com suas configurações do Appwrite:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+NEXT_PUBLIC_APPWRITE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_APPWRITE_URL=https://cloud.appwrite.io/v1
+NEXT_PUBLIC_APPWRITE_DATABASE_ID=your_database_id
+NEXT_PUBLIC_APPWRITE_COLLECTION_ID=your_collection_id
+```
+
+```bash
+# Rode o projeto
+npm run dev
+```
+
+## 🧪 Testes
+
+> Este projeto não possui testes automatizados. Fique à vontade para contribuir com essa melhoria.
+
+## 🖼️ Prints da aplicação
+
+> Adicione aqui imagens da aplicação em execução (opcional).
+
+## 📄 Licença
+
+Este projeto é de uso educacional e segue a licença do curso.
+
+## 👨‍💻 Autor
+
+Desenvolvido por [Stanislaw Cruz](https://github.com/stanycruz), com base nos estudos realizados no curso da Udemy citado acima.
+
+---
+
+**Sinta-se à vontade para forkar ou contribuir com melhorias.**
